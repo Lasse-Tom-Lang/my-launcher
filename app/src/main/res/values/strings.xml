@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Launcher</string>
+    <string name="search">Search</string>
+    <string name="library">Library</string>
+    <string name="iconAlt">Icon</string>
+    <string name="back">Back</string>
+</resources>
