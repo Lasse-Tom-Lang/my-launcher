@@ -7,6 +7,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,7 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     private ListView libaryListView;
     private String[] stringArray;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
         showLibraryAnim = AnimationUtils.loadAnimation(this, R.anim.show_library);
         hideLibraryAnim = AnimationUtils.loadAnimation(this, R.anim.hide_library);
+        searchInput.addTextChangedListener(this);
+
     }
 
     public void showLibrary(View view) {
@@ -146,5 +150,20 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable string) {
+        Search.Search(getApplicationContext(), string.toString(), searchResults);
     }
 }
