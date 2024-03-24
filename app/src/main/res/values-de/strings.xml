@@ -5,4 +5,6 @@
     <string name="library">App-Liste</string>
     <string name="iconAlt">Icon</string>
     <string name="back">Zurück</string>
+    <string name="contacts">Kontakte</string>
+    <string name="apps">Apps</string>
 </resources>

@@ -164,6 +164,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable string) {
-        Search.Search(getApplicationContext(), string.toString(), searchResults);
+        Search.Search(getApplicationContext(), string.toString(), searchResults, stringArray);
     }
 }
