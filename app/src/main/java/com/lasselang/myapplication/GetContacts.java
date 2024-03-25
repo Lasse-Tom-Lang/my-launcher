@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class GetContacts {
 
-    public static ArrayList fetchContacts(Context context) {
+    public static ArrayList<String> fetchContacts(Context context) {
         ArrayList<String> contactsList = new ArrayList<>();
 
         ContentResolver contentResolver = context.getContentResolver();

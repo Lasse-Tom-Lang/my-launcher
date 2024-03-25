@@ -13,22 +13,18 @@ import android.widget.ImageView;
 public class LibraryAdapter extends BaseAdapter {
 
     Context context;
-    String[] names;
-    Drawable[] images;
-    String[] packages;
+    AppInfo apps[];
     LayoutInflater inflater;
 
-    public LibraryAdapter(Context ctx, String[] names, Drawable[] images, String[] packages) {
+    public LibraryAdapter(Context ctx, AppInfo[] apps) {
         this.context = ctx;
-        this.names = names;
-        this.images = images;
-        this.packages = packages;
+        this.apps = apps;
         inflater = LayoutInflater.from(ctx);
     }
 
     @Override
     public int getCount() {
-        return names.length;
+        return apps.length;
     }
 
     @Override
@@ -46,17 +42,16 @@ public class LibraryAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.activity_applibrary_item, null);
         Button txtView = convertView.findViewById(R.id.textView);
         ImageView imgView = convertView.findViewById(R.id.imageView);
-        txtView.setText(names[position]);
-        imgView.setImageDrawable(images[position]);
+        txtView.setText(apps[position].name);
+        imgView.setImageDrawable(apps[position].icon);
         txtView.setOnClickListener(v -> {
-            if (names[position] == context.getString(R.string.app_name)) {
+            if (apps[position].name == context.getString(R.string.app_name)) {
                 Intent intent = new Intent(context, settings.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 return;
             }
-            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packages[position]);
-            context.startActivity(launchIntent);
+            apps[position].Start(context);
         });
         return convertView;
     }

@@ -2,10 +2,6 @@ package com.lasselang.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,17 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     private ListView libaryListView;
-    private String[] stringArray;
-    private Drawable[] drawableArray;
-    private String[] packageArray;
+    private AppInfo apps[];
     private LinearLayout search;
     private EditText searchInput;
     private ListView searchResults;
@@ -75,31 +66,8 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     }
 
     private void setLibrary() {
-        List<ApplicationInfo> listApplicationInfo = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
-        List<String> stringList = new ArrayList<>();
-        List<Drawable> drawableList = new ArrayList<>();
-        List<String> packageList = new ArrayList<>();
-
-        for (ApplicationInfo applicationInfo: listApplicationInfo) {
-            Intent launchIntent = getPackageManager().getLaunchIntentForPackage(applicationInfo.packageName);
-            if (launchIntent != null) {
-                stringList.add(applicationInfo.loadLabel(getPackageManager()).toString());
-                packageList.add(applicationInfo.packageName);
-                try {
-                    drawableList.add(getPackageManager().getApplicationIcon(applicationInfo.packageName));
-                }
-                catch (PackageManager.NameNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        stringArray = stringList.toArray(new String[0]);
-        drawableArray = drawableList.toArray(new Drawable[0]);
-        packageArray = packageList.toArray(new String[0]);
-
-        LibraryAdapter libraryAdapter = new LibraryAdapter(getApplicationContext(), stringArray, drawableArray, packageArray);
+        apps = GetApps.getApps(getApplicationContext());
+        LibraryAdapter libraryAdapter = new LibraryAdapter(getApplicationContext(), apps);
         libaryListView.setAdapter(libraryAdapter);
     }
 
@@ -119,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     }
 
     private void setDate() {
-        TextView dateTimeDisplay = (TextView) findViewById(R.id.dateTextView);
+        TextView dateTimeDisplay = findViewById(R.id.dateTextView);
 
         Calendar calendar = Calendar.getInstance();
 
@@ -164,6 +132,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable string) {
-        Search.Search(getApplicationContext(), string.toString(), searchResults, stringArray);
+        Search.search(getApplicationContext(), string.toString(), searchResults, apps);
     }
 }
