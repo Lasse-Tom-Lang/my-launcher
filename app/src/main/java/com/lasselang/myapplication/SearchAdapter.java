@@ -1,10 +1,14 @@
 package com.lasselang.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SearchAdapter extends BaseAdapter {
@@ -37,6 +41,24 @@ public class SearchAdapter extends BaseAdapter {
         }
         if (searchItems[position].layout == R.layout.activity_search_section_heading) {
             txtView = convertView.findViewById(R.id.textView);
+        }
+        if (searchItems[position].layout == R.layout.activity_search_app) {
+            Button buttonView = convertView.findViewById(R.id.textView);
+            buttonView.setText(searchItems[position].text);
+            ImageView imageView = convertView.findViewById(R.id.imageView);
+            imageView.setImageDrawable(searchItems[position].icon);
+            buttonView.setOnClickListener(v -> {
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                if (searchItems[position].text == context.getString(R.string.app_name)) {
+                    Intent intent = new Intent(context, settings.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    return;
+                }
+                Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(searchItems[position].packageName);
+                context.startActivity(launchIntent);
+            });
         }
         if (txtView != null) {
             txtView.setText(searchItems[position].text);
