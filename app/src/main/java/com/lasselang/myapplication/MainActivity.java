@@ -1,6 +1,8 @@
 package com.lasselang.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,7 +21,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     private ListView libaryListView;
-    private AppInfo apps[];
+    private AppInfo[] apps;
     private LinearLayout search;
     private EditText searchInput;
     private ListView searchResults;
@@ -50,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         showLibraryAnim = AnimationUtils.loadAnimation(this, R.anim.show_library);
         hideLibraryAnim = AnimationUtils.loadAnimation(this, R.anim.hide_library);
         searchInput.addTextChangedListener(this);
-
     }
 
     public void showLibrary(View view) {

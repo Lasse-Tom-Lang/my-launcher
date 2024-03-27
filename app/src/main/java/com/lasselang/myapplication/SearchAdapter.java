@@ -11,13 +11,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class SearchAdapter extends BaseAdapter {
 
     Context context;
-    SearchItem searchItems[];
+    SearchItem[] searchItems;
     LayoutInflater inflater;
 
-    public SearchAdapter(Context context, SearchItem searchItem[]) {
+    public SearchAdapter(Context context, SearchItem[] searchItem) {
         this.context = context;
         this.searchItems = searchItem;
         inflater = LayoutInflater.from(context);
@@ -50,7 +52,7 @@ public class SearchAdapter extends BaseAdapter {
             buttonView.setOnClickListener(v -> {
                 InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                if (searchItems[position].text == context.getString(R.string.app_name)) {
+                if (Objects.equals(searchItems[position].text, context.getString(R.string.app_name))) {
                     Intent intent = new Intent(context, settings.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -58,6 +60,16 @@ public class SearchAdapter extends BaseAdapter {
                 }
                 Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(searchItems[position].packageName);
                 context.startActivity(launchIntent);
+            });
+        }
+        if (searchItems[position].layout == R.layout.activity_search_contact) {
+            Button buttonView = convertView.findViewById(R.id.textView);
+            buttonView.setText(searchItems[position].text);
+            ImageView imageView = convertView.findViewById(R.id.imageView);
+            imageView.setImageDrawable(context.getDrawable(android.R.drawable.ic_menu_call));
+            buttonView.setOnClickListener(v -> {
+                ContactData contactData = GetContacts.getContactDetails(context.getContentResolver(), searchItems[position].text);
+                System.out.println(contactData.phoneNumber);
             });
         }
         if (txtView != null) {

@@ -14,7 +14,8 @@
         android:layout_marginStart="10dp"
         android:layout_weight=".1"
         android:contentDescription="@string/iconAlt"
-        app:srcCompat="@android:drawable/checkbox_off_background" />
+        android:scaleType="center"
+        app:srcCompat="@android:drawable/ic_menu_call" />
 
     <Button
         android:id="@+id/textView"
@@ -25,7 +26,7 @@
         android:background="#00FFEFEF"
         android:fontFamily="sans-serif-light"
         android:textAlignment="textStart"
+        android:textAllCaps="false"
         android:textColor="#000"
-        android:textSize="20sp"
-        android:textAllCaps="false"/>
+        android:textSize="20sp" />
 </LinearLayout>

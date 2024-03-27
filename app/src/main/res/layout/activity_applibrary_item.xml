@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="start"
-    android:orientation="horizontal"
-    tools:context=".applibrary_item">
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imageView"
@@ -27,5 +26,6 @@
         android:fontFamily="sans-serif-light"
         android:textAlignment="textStart"
         android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textAllCaps="false"/>
 </LinearLayout>

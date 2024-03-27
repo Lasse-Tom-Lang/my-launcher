@@ -2,7 +2,6 @@ package com.lasselang.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Objects;
+
 public class LibraryAdapter extends BaseAdapter {
 
     Context context;
-    AppInfo apps[];
+    AppInfo[] apps;
     LayoutInflater inflater;
 
     public LibraryAdapter(Context ctx, AppInfo[] apps) {
@@ -45,7 +46,7 @@ public class LibraryAdapter extends BaseAdapter {
         txtView.setText(apps[position].name);
         imgView.setImageDrawable(apps[position].icon);
         txtView.setOnClickListener(v -> {
-            if (apps[position].name == context.getString(R.string.app_name)) {
+            if (Objects.equals(apps[position].name, context.getString(R.string.app_name))) {
                 Intent intent = new Intent(context, settings.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
