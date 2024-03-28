@@ -1,5 +1,7 @@
 package com.lasselang.myapplication;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
@@ -7,6 +9,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,7 +22,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements TextWatcher {
+public class MainActivity extends AppCompatActivity implements TextWatcher, GestureDetector.OnGestureListener {
 
     private ListView libaryListView;
     private AppInfo[] apps;
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     private Animation slideDown;
     private Animation showLibraryAnim;
     private Animation hideLibraryAnim;
+    private GestureDetector gestureDetector;
+    private static final int SWIPE_THRESHOLD = 100;
+    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         showLibraryAnim = AnimationUtils.loadAnimation(this, R.anim.show_library);
         hideLibraryAnim = AnimationUtils.loadAnimation(this, R.anim.hide_library);
         searchInput.addTextChangedListener(this);
+
+        gestureDetector = new GestureDetector(this, this);
     }
 
     public void showLibrary(View view) {
@@ -134,5 +143,64 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable string) {
         Search.search(getApplicationContext(), string.toString(), searchResults, apps);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onDown(@NonNull MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(@NonNull MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(@NonNull MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(@NonNull MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+        float diffX = e2.getX() - e1.getX();
+        float diffY = e2.getY() - e1.getY();
+        System.out.println(diffX);
+        System.out.println(diffY);
+
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if (diffX > 0) {
+                    // SwipeRight
+                } else {
+                    // SwipeLeft
+                }
+            }
+        } else {
+            if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                if (diffY > 0) {
+                    // SwipeDown
+                    openSearch(null);
+                } else {
+                    // SwipeUp
+                    showLibrary(nulla);
+                }
+            }
+        }
+        return false;
     }
 }

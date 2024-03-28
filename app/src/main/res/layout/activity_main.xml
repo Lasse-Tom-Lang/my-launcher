@@ -128,36 +128,10 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/search"
+    <include
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_layout"
-        android:orientation="vertical"
-        android:translationY="50dp"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        tools:visibility="visible">
-
-        <EditText
-            android:id="@+id/searchInput"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_search"
-            android:ems="10"
-            android:hint="@string/search"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="20sp"
-            android:autofillHints="" />
-
-        <ListView
-            android:id="@+id/searchResults"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        layout="@layout/activity_search"
+        android:layout_margin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
