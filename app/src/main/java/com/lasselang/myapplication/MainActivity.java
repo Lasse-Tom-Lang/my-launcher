@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Gest
     private ListView libaryListView;
     private AppInfo[] apps;
     private LinearLayout search;
+    private LinearLayout libraryView;
     private EditText searchInput;
     private ListView searchResults;
     private Animation slideUp;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Gest
         setContentView(R.layout.activity_main);
 
         libaryListView = findViewById(R.id.appList);
+        libraryView = findViewById(R.id.appList_container);
 
         search = findViewById(R.id.search);
         searchInput = findViewById(R.id.searchInput);
@@ -64,13 +66,13 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Gest
     }
 
     public void showLibrary(View view) {
-        if (libaryListView.getVisibility() == View.INVISIBLE) {
-            libaryListView.setVisibility(View.VISIBLE);
-            libaryListView.startAnimation(showLibraryAnim);
+        if (libraryView.getVisibility() == View.INVISIBLE) {
+            libraryView.setVisibility(View.VISIBLE);
+            libraryView.startAnimation(showLibraryAnim);
         }
         else {
-            libaryListView.startAnimation(hideLibraryAnim);
-            libaryListView.setVisibility(View.INVISIBLE);
+            libraryView.startAnimation(hideLibraryAnim);
+            libraryView.setVisibility(View.INVISIBLE);
             setLibrary();
         }
     }
@@ -179,8 +181,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Gest
     public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
         float diffX = e2.getX() - e1.getX();
         float diffY = e2.getY() - e1.getY();
-        System.out.println(diffX);
-        System.out.println(diffY);
 
         if (Math.abs(diffX) > Math.abs(diffY)) {
             if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
@@ -194,10 +194,12 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Gest
             if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                 if (diffY > 0) {
                     // SwipeDown
-                    openSearch(null);
+                    if (libraryView.getVisibility() == View.INVISIBLE) {
+                        openSearch(null);
+                    }
                 } else {
                     // SwipeUp
-                    showLibrary(nulla);
+                    showLibrary(null);
                 }
             }
         }

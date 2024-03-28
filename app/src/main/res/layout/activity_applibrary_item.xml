@@ -25,7 +25,7 @@
         android:background="#00FFEFEF"
         android:fontFamily="sans-serif-light"
         android:textAlignment="textStart"
-        android:textColor="#FFFFFF"
+        android:textColor="#000"
         android:textSize="20sp"
         android:textAllCaps="false"/>
 </LinearLayout>

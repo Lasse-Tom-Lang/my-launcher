@@ -6,4 +6,5 @@
     <string name="back">Back</string>
     <string name="contacts">Contacts:</string>
     <string name="apps">Apps:</string>
+    <string name="close">Close</string>
 </resources>

@@ -66,18 +66,38 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/appList"
+    <LinearLayout
+        android:id="@+id/appList_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_layout"
+        android:background="@drawable/bg_app_list"
+        android:paddingBottom="44dp"
+        android:translationZ="10dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/settingsBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeDateView" />
+        app:layout_constraintTop_toBottomOf="@+id/timeDateView"
+        android:orientation="vertical"
+        tools:visibility="visible"  >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_app_list"
+            android:onClick="showLibrary"
+            android:text="@string/close"
+            android:textSize="20sp" />
+        <ListView
+            android:id="@+id/appList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeDateView" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/settingsBar"
@@ -92,9 +112,7 @@
         app:layout_constraintEnd_toStartOf="@+id/appList"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/appList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appList"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/showLibrary"
