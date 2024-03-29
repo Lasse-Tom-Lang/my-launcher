@@ -66,43 +66,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/appList_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_app_list"
-        android:paddingBottom="44dp"
-        android:translationZ="10dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeDateView"
-        android:orientation="vertical"
-        tools:visibility="visible"  >
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/bg_app_list"
-            android:onClick="showLibrary"
-            android:text="@string/close"
-            android:textSize="20sp" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/appList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:translationZ="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeDateView"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            />
-            <!--app:spanCount="2"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-    </LinearLayout>
+    <include layout="@layout/activity_applist" />
 
     <LinearLayout
         android:id="@+id/settingsBar"

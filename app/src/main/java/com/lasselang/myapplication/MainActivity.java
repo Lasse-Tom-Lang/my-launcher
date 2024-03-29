@@ -3,6 +3,8 @@ package com.lasselang.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentResolver;
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Gest
 
         libaryListView = findViewById(R.id.appList);
         libraryView = findViewById(R.id.appList_container);
+
+        // libaryListView.setLayoutManager(new GridLayoutManager(this, 4));
+        // if (libaryListView.getLayoutManager().getClass() == LinearLayoutManager.class) {
+        // }
 
         search = findViewById(R.id.search);
         searchInput = findViewById(R.id.searchInput);
