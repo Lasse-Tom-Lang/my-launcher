@@ -3,6 +3,7 @@ package com.lasselang.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements TextWatcher, GestureDetector.OnGestureListener {
 
-    private ListView libaryListView;
+    private RecyclerView libaryListView;
     private AppInfo[] apps;
     private LinearLayout search;
     private LinearLayout libraryView;

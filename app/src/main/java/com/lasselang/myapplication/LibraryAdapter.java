@@ -5,47 +5,51 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
-public class LibraryAdapter extends BaseAdapter {
+public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHolder> {
 
-    Context context;
-    AppInfo[] apps;
-    LayoutInflater inflater;
+    private final Context context;
+    private final AppInfo[] apps;
 
-    public LibraryAdapter(Context ctx, AppInfo[] apps) {
-        this.context = ctx;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final Button textView;
+        private final ImageView imageView;
+
+        public ViewHolder(View view) {
+            super(view);
+            textView = view.findViewById(R.id.textView);
+            imageView = view.findViewById(R.id.imageView);
+        }
+
+        public Button getTextView() {
+            return textView;
+        }
+        public ImageView getImageView() {
+            return imageView;
+        }
+    }
+
+    public LibraryAdapter(Context context, AppInfo[] apps) {
+        this.context = context;
         this.apps = apps;
-        inflater = LayoutInflater.from(ctx);
     }
 
     @Override
-    public int getCount() {
-        return apps.length;
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_applibrary_item, viewGroup, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.activity_applibrary_item, null);
-        Button txtView = convertView.findViewById(R.id.textView);
-        ImageView imgView = convertView.findViewById(R.id.imageView);
-        txtView.setText(apps[position].name);
-        imgView.setImageDrawable(apps[position].icon);
-        txtView.setOnClickListener(v -> {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        viewHolder.getTextView().setText(apps[position].name);
+        viewHolder.getImageView().setImageDrawable(apps[position].icon);
+        viewHolder.getTextView().setOnClickListener(v -> {
             if (Objects.equals(apps[position].name, context.getString(R.string.app_name))) {
                 Intent intent = new Intent(context, settings.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -54,6 +58,10 @@ public class LibraryAdapter extends BaseAdapter {
             }
             apps[position].Start(context);
         });
-        return convertView;
+    }
+
+    @Override
+    public int getItemCount() {
+        return apps.length;
     }
 }
